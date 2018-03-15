@@ -38,6 +38,8 @@
 	</head>
 	<body>
 		<img src="img/1.jpg"/>
+		<!--预加载-->
+		<img id="imgBuffer" src="img/2.jpg" style="display: none;">
 		<div onclick="reNextImg()" style="background-color: rgba(255,0,0,0.5);">前一页 </div>
 		<div onclick="nextImg()" style="left: 50%;background-color: rgba(0,255,0,0.5);">后一页</div>
 		<span style="position: fixed;top: 85%;right: 35%;">第<span id="spanIndex">1</span>页 (1-160页)</span>
@@ -49,6 +51,7 @@
 			var srcEnd=".jpg";
 			var index=1;
 			var elem=document.querySelector("img");
+			var imgBuffer=document.querySelector("#imgBuffer");
 			var num=document.querySelector("#num");
 			var spanIndex=document.querySelector("#spanIndex");
 			var divFunArea=document.querySelectorAll("div");
@@ -73,6 +76,7 @@
 				elem.src=src+index+srcEnd;
 				spanIndex.innerText=index;
 				num.value=index;
+				imgBuffer.src=src+(index+1)+srcEnd;
 			}
 			//后一页
 			function nextImg(){
@@ -83,6 +87,7 @@
 				elem.src=src+index+srcEnd;
 				spanIndex.innerText=index;
 				num.value=index;
+				imgBuffer.src=src+(index+1)+srcEnd;
 			}
 			//前一页
 			function reNextImg(){
@@ -93,6 +98,7 @@
 				elem.src=src+index+srcEnd;
 				spanIndex.innerText=index;
 				num.value=index;
+				imgBuffer.src=src+(index+1)+srcEnd;
 			}
 			//判断是否超出界限
 			function outIndex(index){
