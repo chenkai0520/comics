@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>你今天真好看</title>
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+		<style>
+			html body{
+				width: 100%;
+				height: 100%;
+				padding: 0;
+				margin: 0;
+			}
+			img{
+				height: 85%;
+				width: 100%;
+				position: absolute;
+				left: calc(50% - 353);
+				margin: 0;
+				padding: 0;
+			}
+			input{
+				position: fixed;
+				top: 90%;
+				height: 7%;
+				width: 20%;
+				background-color: #7A67EE;
+			}
+			div{
+				width: 50%;
+				height: 100%;
+				position: fixed;
+				display: inline-block;
+				text-align: center;
+				font-size: 6em;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="img/1.jpg"/>
+		<div onclick="reNextImg()" style="background-color: rgba(255,0,0,0.5);">前一页 </div>
+		<div onclick="nextImg()" style="left: 50%;background-color: rgba(0,255,0,0.5);">后一页</div>
+		<span style="position: fixed;top: 85%;right: 35%;">第<span id="spanIndex">1</span>页 (1-160页)</span>
+		<input id="num" type="text" style="right: 51%;height: 6%;"/>
+		<input type="button" value="跳转" style="left: 51%;" onclick="toImg()"/>
+	</body>
+		<script type="text/javascript">
+			var src="img/";
+			var srcEnd=".jpg";
+			var index=1;
+			var elem=document.querySelector("img");
+			var num=document.querySelector("#num");
+			var spanIndex=document.querySelector("#spanIndex");
+			var divFunArea=document.querySelectorAll("div");
+			setTimeout(function(){
+				divFunArea.forEach(function(ele){
+					ele.innerText="";
+					ele.style.backgroundColor="";
+				});
+			},2000);
+			//跳转
+			function toImg(){
+				if(isRealNum(num.value)){
+					index=parseInt(num.value);
+				}else{
+					alert("请输入数字");
+					return;
+				}
+				//判断是否超出界限
+				if(outIndex(index)){
+					return;
+				}
+				elem.src=src+index+srcEnd;
+				spanIndex.innerText=index;
+				num.value=index;
+			}
+			//后一页
+			function nextImg(){
+				index++;
+				if(outIndex(index)){
+					return;
+				}
+				elem.src=src+index+srcEnd;
+				spanIndex.innerText=index;
+				num.value=index;
+			}
+			//前一页
+			function reNextImg(){
+				index--;
+				if(outIndex(index)){
+					return;
+				}
+				elem.src=src+index+srcEnd;
+				spanIndex.innerText=index;
+				num.value=index;
+			}
+			//判断是否超出界限
+			function outIndex(index){
+				if(index>160 || index<1){
+					return true;
+				}else{
+					return false;
+				}
+			}
+			//判断是否为数字
+			function isRealNum(val){
+		    // isNaN()函数 把空串 空格 以及NUll 按照0来处理 所以先去除
+		    if(val === "" || val ==null){
+		        return false;
+		    }
+		    if(!isNaN(val)){
+		        return true;
+		    }else{
+		        return false;
+		    }
+		} 
+		</script>
+</html>
